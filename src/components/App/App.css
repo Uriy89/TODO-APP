@@ -53,3 +53,8 @@ body {
 	            0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
+.main {
+	position: relative;
+	z-index: 2;
+	border-top: 1px solid #e6e6e6;
+}
