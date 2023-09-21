@@ -6,7 +6,6 @@ import "./App.css";
 
 export default class App extends Component {
   maxId = 100;
-  
 
   state = {
     todoData: [
@@ -14,8 +13,7 @@ export default class App extends Component {
       this.createTodoItem("Make code"),
       this.createTodoItem("Play wild rift"),
     ],
-    filter: 'all',
-    
+    filter: "all",
   };
 
   createTodoItem(lable) {
@@ -24,12 +22,9 @@ export default class App extends Component {
       description: "",
       active: true,
       id: this.maxId++,
-      classChecked: this.active ? '' : 'checked'
+      classChecked: this.active ? "" : "checked",
+      time: new Date(),
     };
-  }
-
-  onChecked = () => {
-
   }
 
   deleteItem = (id) => {
@@ -53,7 +48,7 @@ export default class App extends Component {
 
       const oldItem = todoData[index];
       const newItem = { ...oldItem, active: !oldItem.active };
-      
+
       const newArray = [
         ...todoData.slice(0, index),
         newItem,
@@ -77,32 +72,30 @@ export default class App extends Component {
   };
 
   onDeletedAll = () => {
-    this.setState({ todoData: [] })
-  }
-
+    this.setState({ todoData: [] });
+  };
 
   filter = (items, filter) => {
-    switch(filter) {
-      case 'all':
-        return items
-      case 'active':
-        return items.filter((item) => item.active)
-      case 'completed':
-        return items.filter((item) => !item.active)
+    switch (filter) {
+      case "all":
+        return items;
+      case "active":
+        return items.filter((item) => item.active);
+      case "completed":
+        return items.filter((item) => !item.active);
       default:
-        return items
+        return items;
     }
-  }
+  };
 
   onChangeFilter = (filter) => {
-    this.setState({ filter })
-  }
+    this.setState({ filter });
+  };
 
   render() {
-    
     const { todoData, filter } = this.state;
     const activeCount = todoData.filter((el) => el.active).length;
-    const visibleItems = this.filter(todoData, filter)
+    const visibleItems = this.filter(todoData, filter);
 
     return (
       <>
@@ -121,7 +114,7 @@ export default class App extends Component {
             filter={filter}
             onChangeFilter={this.onChangeFilter}
             onDeletedAll={this.onDeletedAll}
-            />
+          />
         </section>
       </>
     );

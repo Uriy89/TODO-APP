@@ -1,8 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import Task from "../Task/Task";
 import "./TaskList.css";
 
-const TaskList = ({ todos, onDeleted, onToggleDone }) => {
+const TaskList = (props) => {
+  const { todos, onDeleted, onToggleDone, createTimeAgo} = props
+
   const elements = todos.map((item) => {
     const { id, ...itemsProps } = item;
     return (
@@ -12,6 +15,8 @@ const TaskList = ({ todos, onDeleted, onToggleDone }) => {
           onDeleted={() => onDeleted(id)}
           onToggleDone={() => onToggleDone(id)}
           classChecked={item.active ? '' : 'checked'}
+          createTime={() => createTimeAgo()}
+          time={item.time}
         />
       </li>
     );
@@ -19,5 +24,10 @@ const TaskList = ({ todos, onDeleted, onToggleDone }) => {
 
   return <ul className="todo-list">{elements}</ul>;
 };
+
+TaskList.propTypes = {
+  onListSelected: PropTypes.func,
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 
 export default TaskList;
