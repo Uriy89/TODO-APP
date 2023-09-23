@@ -16,20 +16,53 @@ export default class App extends Component {
     filter: "all",
   };
 
-  createTodoItem(lable) {
+  createTodoItem(label) {
     return {
-      lable,
+      label,
       description: "",
       active: true,
       id: this.maxId++,
       classChecked: this.active ? "" : "checked",
       time: new Date(),
+      status: false,
     };
   }
 
+  onChangeStatuEdit = (id) => {
+    this.setState(({ todoData }) => {
+      const index = this.searchElementById(id, todoData);
+      const newStatus = !todoData[index].status;
+
+      const newTodoData = [...todoData];
+      newTodoData[index].status = newStatus;
+
+      return {
+        todoData: newTodoData,
+      };
+    });
+  };
+
+  searchElementById = (id, elements) => {
+    const index = elements.findIndex((el) => el.id === id);
+    return index;
+  };
+
+  onTaskEdit = (id, text) => {
+    this.setState(({ todoData }) => {
+      const index = this.searchElementById(id, todoData);
+
+      const newTodoData = [...todoData];
+      newTodoData[index].label = text;
+      newTodoData[index].status = !todoData[index].status;
+      return {
+        todoData: newTodoData,
+      };
+    });
+  };
+
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
+      const index = this.searchElementById(id, todoData);
 
       const newArray = [
         ...todoData.slice(0, index),
@@ -44,7 +77,7 @@ export default class App extends Component {
 
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
+      const index = this.searchElementById(id, todoData);
 
       const oldItem = todoData[index];
       const newItem = { ...oldItem, active: !oldItem.active };
@@ -108,6 +141,8 @@ export default class App extends Component {
             todos={visibleItems}
             onDeleted={this.deleteItem}
             onToggleDone={this.onToggleDone}
+            onChangeStatuEdit={this.onChangeStatuEdit}
+            onTaskEdit={this.onTaskEdit}
           />
           <Footer
             active={activeCount}

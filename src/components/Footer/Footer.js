@@ -21,3 +21,13 @@ Footer.propTypes = {
 }
 
 export default Footer;
+
+Footer.defaultProps = {
+  onChangeFilter: () => {},
+  onDeletedAll: () => {}
+};
+
+Footer.propTypes = {
+  active: PropTypes.number,
+  filter: PropTypes.string,
+};

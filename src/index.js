@@ -1,9 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
-import App from './components/App';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./components/App";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('todoapp')
-);
+const root = createRoot(document.getElementById("todoapp"));
 
-root.render(<App/>);
+root.render(<App />);
