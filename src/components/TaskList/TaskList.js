@@ -1,17 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Task from "../Task/Task";
-import "./TaskList.css";
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import Task from '../Task/Task'
+import './TaskList.css'
 
 const TaskList = (props) => {
-  const {
-    todos,
-    onDeleted,
-    onToggleDone,
-    createTimeAgo,
-    onChangeStatuEdit,
-    onTaskEdit,
-  } = props;
+  const { todos, onDeleted, onToggleDone, createTimeAgo, onChangeStatuEdit, onTaskEdit } = props
 
   const elements = todos.map((item) => {
     const { id, ...itemsProps } = item;
@@ -22,7 +16,7 @@ const TaskList = (props) => {
           {...itemsProps}
           onDeleted={() => onDeleted(id)}
           onToggleDone={() => onToggleDone(id)}
-          classChecked={item.active ? "" : "checked"}
+          classChecked={item.active ? '' : 'checked'}
           createTime={() => createTimeAgo()}
           time={item.time}
           status={item.status}
@@ -32,7 +26,7 @@ const TaskList = (props) => {
         />
       </li>
     );
-  });
+  })
 
   return <ul className="todo-list">{elements}</ul>;
 };
