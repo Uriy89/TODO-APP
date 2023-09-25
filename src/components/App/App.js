@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
