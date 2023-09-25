@@ -1,6 +1,5 @@
- /* eslint-disable */
-import React, { Component } from "react";
-import "./Eddit.css";
+import React, { Component } from 'react';
+import './Eddit.css';
 
 export default class Eddit extends Component {
   state = {
@@ -22,13 +21,7 @@ export default class Eddit extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          className="edit"
-          type="text"
-          value={this.state.label}
-          onChange={this.onTaskChange}
-          autoFocus
-        />
+        <input className="edit" type="text" value={this.state.label} onChange={this.onTaskChange} autoFocus />
       </form>
     );
   }

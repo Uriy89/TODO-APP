@@ -1,21 +1,20 @@
-/* eslint-disable */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { formatDistanceToNow } from 'date-fns'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { formatDistanceToNow } from 'date-fns';
 
-import Eddit from '../Eddit'
-import './Task.css'
+import Eddit from '../Eddit';
+import './Task.css';
 
 export default class Task extends Component {
   render() {
     const { label, active, id, onDeleted, onToggleDone, classChecked, time, status, onChangeStatuEdit, onTaskEdit } =
-      this.props
+      this.props;
 
     const distance = formatDistanceToNow(time, { includeSeconds: true });
 
-    let classLabel = ''
+    let classLabel = '';
 
-    if (!active) classLabel += 'description'
+    if (!active) classLabel += 'description';
 
     return (
       <>

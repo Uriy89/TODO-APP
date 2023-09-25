@@ -1,40 +1,34 @@
- /* eslint-disable */
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import "./TasksFilter.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './TasksFilter.css';
 
 export default class TasksFilter extends Component {
   buttons = [
-    {name: 'all', label: 'All'},
-    {name: 'active', label: 'Active'},
-    {name: 'completed', label: 'Completed'}
-  ]
+    { name: 'all', label: 'All' },
+    { name: 'active', label: 'Active' },
+    { name: 'completed', label: 'Completed' },
+  ];
 
   render() {
-    const { filter, onChangeFilter } = this.props 
+    const { filter, onChangeFilter } = this.props;
 
     const btns = this.buttons.map(({ name, label }) => {
-      const isActiveBtn = filter === name
-      const clss = isActiveBtn ? 'selected' : ''
+      const isActiveBtn = filter === name;
+      const clss = isActiveBtn ? 'selected' : '';
 
       return (
         <li key={name}>
-          <button 
-            type="button" 
-            className={clss}
-            onClick={() => onChangeFilter(name)}
-          >
+          <button type="button" className={clss} onClick={() => onChangeFilter(name)}>
             {label}
           </button>
         </li>
-      )
+      );
     });
 
     return <ul className="filters">{btns}</ul>;
   }
 }
 
-
 TasksFilter.propTypes = {
-  filter: PropTypes.string
+  filter: PropTypes.string,
 };

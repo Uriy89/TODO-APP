@@ -1,29 +1,30 @@
- /* eslint-disable */
-import React, { Component } from "react";
-import NewTaskForm from "../NewTaskForm";
-import TaskList from "../TaskList";
-import Footer from "../Footer";
-import "./App.css";
+/* eslint-disable */
+import React, { Component } from 'react';
+import NewTaskForm from '../NewTaskForm';
+import TaskList from '../TaskList';
+import Footer from '../Footer';
+import './App.css';
 
 export default class App extends Component {
-  maxId = 100;
 
+  maxId = 100;
+ 
   state = {
     todoData: [
-      this.createTodoItem("Drink Coffee"),
-      this.createTodoItem("Make code"),
-      this.createTodoItem("Play wild rift"),
+      this.createTodoItem('Drink Coffee'),
+      this.createTodoItem('Make code'),
+      this.createTodoItem('Play wild rift'),
     ],
-    filter: "all",
+    filter: 'all',
   };
 
   createTodoItem(label) {
     return {
       label,
-      description: "",
+      description: '',
       active: true,
       id: this.maxId++,
-      classChecked: this.active ? "" : "checked",
+      classChecked: this.active ? '' : 'checked',
       time: new Date(),
       status: false,
     };
@@ -65,10 +66,7 @@ export default class App extends Component {
     this.setState(({ todoData }) => {
       const index = this.searchElementById(id, todoData);
 
-      const newArray = [
-        ...todoData.slice(0, index),
-        ...todoData.slice(index + 1),
-      ];
+      const newArray = [...todoData.slice(0, index), ...todoData.slice(index + 1)];
 
       return {
         todoData: newArray,
@@ -83,11 +81,7 @@ export default class App extends Component {
       const oldItem = todoData[index];
       const newItem = { ...oldItem, active: !oldItem.active };
 
-      const newArray = [
-        ...todoData.slice(0, index),
-        newItem,
-        ...todoData.slice(index + 1),
-      ];
+      const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
 
       return {
         todoData: newArray,
@@ -111,11 +105,11 @@ export default class App extends Component {
 
   filter = (items, filter) => {
     switch (filter) {
-      case "all":
+      case 'all':
         return items;
-      case "active":
+      case 'active':
         return items.filter((item) => item.active);
-      case "completed":
+      case 'completed':
         return items.filter((item) => !item.active);
       default:
         return items;

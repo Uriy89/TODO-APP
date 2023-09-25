@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Task from '../Task/Task'
-import './TaskList.css'
+import Task from '../Task/Task';
+import './TaskList.css';
 
 const TaskList = (props) => {
-  const { todos, onDeleted, onToggleDone, createTimeAgo, onChangeStatuEdit, onTaskEdit } = props
+  const { todos, onDeleted, onToggleDone, createTimeAgo, onChangeStatuEdit, onTaskEdit } = props;
 
   const elements = todos.map((item) => {
     const { id, ...itemsProps } = item;
@@ -26,7 +26,7 @@ const TaskList = (props) => {
         />
       </li>
     );
-  })
+  });
 
   return <ul className="todo-list">{elements}</ul>;
 };

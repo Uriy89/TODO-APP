@@ -1,3 +1,3 @@
-import Eddit from './Eddit'
+import Eddit from './Eddit';
 
-export default Eddit
+export default Eddit;

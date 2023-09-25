@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import TasksFilter from '../TasksFilter'
-import './Footer.css'
+import TasksFilter from '../TasksFilter';
+import './Footer.css';
 
 const Footer = ({ active, onChangeFilter, filter, onDeletedAll }) => {
   return (
@@ -18,9 +18,9 @@ const Footer = ({ active, onChangeFilter, filter, onDeletedAll }) => {
 
 Footer.propTypes = {
   active: PropTypes.number.isRequired,
-}
+};
 
-export default Footer
+export default Footer;
 
 Footer.defaultProps = {
   onChangeFilter: () => {},
