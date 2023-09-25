@@ -3,6 +3,5 @@
   "trailingComma": "ES6",
   "endOfLine": "lf",
   "printWidth": 120,
-  "avoidEscape": true,
- 
+  "avoidEscape": true
 }
