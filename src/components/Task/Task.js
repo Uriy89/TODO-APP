@@ -4,6 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 import Eddit from '../Eddit';
 import './Task.css';
+import Timer from '../Timer/Timer';
 
 export default class Task extends Component {
   render() {
@@ -25,6 +26,7 @@ export default class Task extends Component {
             <input className="toggle" type="checkbox" defaultChecked={classChecked} onClick={onToggleDone} />
             <label>
               <span className={classLabel}>{label}</span>
+              <Timer />
               <span className="created">create {distance} ago</span>
             </label>
             <button className="icon icon-edit" onClick={onChangeStatuEdit}></button>
@@ -54,5 +56,5 @@ Task.propTypes = {
   active: PropTypes.bool.isRequired,
   classChecked: PropTypes.string,
   time: PropTypes.instanceOf(Date),
-  status: PropTypes.boo,
+  status: PropTypes.bool,
 };
