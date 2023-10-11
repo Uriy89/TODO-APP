@@ -6,9 +6,8 @@ import Footer from '../Footer';
 import './App.css';
 
 export default class App extends Component {
-
   maxId = 100;
- 
+
   state = {
     todoData: [
       this.createTodoItem('Drink Coffee'),
