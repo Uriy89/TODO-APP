@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 import './Timer.css';
 
 export default class Timer extends Component {
-  
   state = {
     pause: false,
-    time: 0
+    time: 0,
   };
 
   timerInterval = null;
@@ -19,7 +18,7 @@ export default class Timer extends Component {
 
   onSetPouse = () => {
     this.setState(({ pause }) => ({
-      pause: !pause
+      pause: !pause,
     }));
 
     if (!this.state.pause) {
@@ -41,7 +40,6 @@ export default class Timer extends Component {
     clearInterval(this.timerInterval);
   }
 
-
   formatTime() {
     const { time } = this.state;
     const hours = Math.floor(time / 3600);
@@ -50,7 +48,6 @@ export default class Timer extends Component {
 
     return `${hours}:${minutes}:${seconds}`;
   }
-
 
   render() {
     const { pause } = this.state;
@@ -67,5 +64,5 @@ export default class Timer extends Component {
 
 Timer.propTypes = {
   pause: PropTypes.bool,
-  time: PropTypes.func
+  time: PropTypes.func,
 };
