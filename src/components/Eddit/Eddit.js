@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './Eddit.css';
 
-export default class Eddit extends Component {
-  state = {
-    label: this.props.label,
-    id: this.props.id,
+const Eddit = (props) => {
+  const [label, setLabel] = useState(props.label);
+
+  const onTaskChange = (event) => {
+    setLabel(event.target.value);
   };
 
-  onTaskChange = (event) => {
-    this.setState({
-      label: event.target.value,
-    });
-  };
-
-  onSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    this.props.onTaskEdit(this.state.id, this.state.label);
+    props.onTaskEdit(props.id, label);
   };
 
-  render() {
-    return (
-      <form onSubmit={this.onSubmit}>
-        <input className="edit" type="text" value={this.state.label} onChange={this.onTaskChange} autoFocus />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onSubmit}>
+      <input className="edit" type="text" value={label} onChange={onTaskChange} autoFocus />
+    </form>
+  );
+};
+
+export default Eddit;

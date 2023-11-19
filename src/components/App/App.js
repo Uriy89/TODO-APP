@@ -1,108 +1,96 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 import Footer from '../Footer';
 import './App.css';
 
-export default class App extends Component {
-  maxId = 100;
+const App = () => {
+  
 
-  state = {
-    todoData: [
-      this.createTodoItem('Drink Coffee'),
-      this.createTodoItem('Make code'),
-      this.createTodoItem('Play wild rift'),
-    ],
-    filter: 'all',
-  };
+  let maxId = 100;
 
-  createTodoItem(label) {
+  const [isActive, setIsActive] = useState(false);
+  const [filter, setFilter] = useState('all');
+
+  const createTodoItem = (label) => {
     return {
       label,
       description: '',
       active: true,
-      id: this.maxId++,
-      classChecked: this.active ? '' : 'checked',
+      id: maxId++,
+      classChecked: isActive ? '' : 'checked',
       time: new Date(),
       status: false,
     };
-  }
+  };
 
-  onChangeStatuEdit = (id) => {
-    this.setState(({ todoData }) => {
-      const index = this.searchElementById(id, todoData);
-      const newStatus = !todoData[index].status;
+  const [todoData, setTodoData] = useState([
+    createTodoItem('Drink Coffee'),
+    createTodoItem('Make code'),
+    createTodoItem('Play wild rift'),
+  ]);
 
-      const newTodoData = [...todoData];
+  const onChangeStatuEdit = (id) => {
+    setTodoData((prevTodoData) => {
+      const index = prevTodoData.findIndex((todo) => todo.id === id);
+      const newStatus = !prevTodoData[index].status;
+
+      const newTodoData = [...prevTodoData];
       newTodoData[index].status = newStatus;
 
-      return {
-        todoData: newTodoData,
-      };
+      return [...newTodoData];
     });
   };
 
-  searchElementById = (id, elements) => {
+  const searchElementById = (id, elements) => {
     const index = elements.findIndex((el) => el.id === id);
     return index;
   };
 
-  onTaskEdit = (id, text) => {
-    this.setState(({ todoData }) => {
-      const index = this.searchElementById(id, todoData);
+  const onTaskEdit = (id, text) => {
+    setTodoData((prevTodoData) => {
+      const index = searchElementById(id, todoData);
 
-      const newTodoData = [...todoData];
+      const newTodoData = [...prevTodoData];
       newTodoData[index].label = text;
       newTodoData[index].status = !todoData[index].status;
-      return {
-        todoData: newTodoData,
-      };
+      return newTodoData;
     });
   };
 
-  deleteItem = (id) => {
-    this.setState(({ todoData }) => {
-      const index = this.searchElementById(id, todoData);
-
-      const newArray = [...todoData.slice(0, index), ...todoData.slice(index + 1)];
-
-      return {
-        todoData: newArray,
-      };
+  const deleteItem = (id) => {
+    setTodoData((prevTodoData) => {
+      const index = searchElementById(id, todoData);
+      const newArray = [...prevTodoData.slice(0, index), ...prevTodoData.slice(index + 1)];
+      return newArray;
     });
   };
 
-  onToggleDone = (id) => {
-    this.setState(({ todoData }) => {
-      const index = this.searchElementById(id, todoData);
-
-      const oldItem = todoData[index];
-      const newItem = { ...oldItem, active: !oldItem.active };
-
-      const newArray = [...todoData.slice(0, index), newItem, ...todoData.slice(index + 1)];
-
-      return {
-        todoData: newArray,
-      };
+  const onToggleDone = (id) => {
+    setTodoData((prevTodoData) => {
+      const index = searchElementById(id, todoData);
+      const oldItem = prevTodoData[index];
+      const newItem = { ...oldItem, active: !oldItem.active};
+      const newArray = [...prevTodoData.slice(0, index), newItem, ...prevTodoData.slice(index + 1)];
+      
+      return newArray;
     });
   };
 
-  onItemAdded = (text) => {
-    const newIrtem = this.createTodoItem(text);
-    this.setState(({ todoData }) => {
-      const newArray = [...todoData, newIrtem];
-      return {
-        todoData: newArray,
-      };
+  const onItemAdded = (text) => {
+    const newIrtem = createTodoItem(text);
+    setTodoData((prevTodoData) => {
+      const newArray = [...prevTodoData, newIrtem];
+      return newArray;
     });
   };
 
-  onDeletedAll = () => {
-    this.setState({ todoData: [] });
+  const onDeletedAll = () => {
+    setTodoData([]);
   };
 
-  filter = (items, filter) => {
+  const filterRes = (items, filter) => {
     switch (filter) {
       case 'all':
         return items;
@@ -115,37 +103,31 @@ export default class App extends Component {
     }
   };
 
-  onChangeFilter = (filter) => {
-    this.setState({ filter });
+  const onChangeFilter = (filter) => {
+    setFilter(filter);
   };
 
-  render() {
-    const { todoData, filter } = this.state;
-    const activeCount = todoData.filter((el) => el.active).length;
-    const visibleItems = this.filter(todoData, filter);
+  const activeCount = todoData.filter((el) => el.active).length;
+  const visibleItems = filterRes(todoData, filter);
 
-    return (
-      <>
-        <header className="header">
-          <h1>todos</h1>
-          <NewTaskForm onItemAdded={this.onItemAdded} />
-        </header>
-        <section className="main">
-          <TaskList
-            todos={visibleItems}
-            onDeleted={this.deleteItem}
-            onToggleDone={this.onToggleDone}
-            onChangeStatuEdit={this.onChangeStatuEdit}
-            onTaskEdit={this.onTaskEdit}
-          />
-          <Footer
-            active={activeCount}
-            filter={filter}
-            onChangeFilter={this.onChangeFilter}
-            onDeletedAll={this.onDeletedAll}
-          />
-        </section>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <header className="header">
+        <h1>todos</h1>
+        <NewTaskForm onItemAdded={onItemAdded} />
+      </header>
+      <section className="main">
+        <TaskList
+          todos={visibleItems}
+          onDeleted={deleteItem}
+          onToggleDone={onToggleDone}
+          onChangeStatuEdit={onChangeStatuEdit}
+          onTaskEdit={onTaskEdit}
+        />
+        <Footer active={activeCount} filter={filter} onChangeFilter={onChangeFilter} onDeletedAll={onDeletedAll} />
+      </section>
+    </>
+  );
+};
+
+export default App;

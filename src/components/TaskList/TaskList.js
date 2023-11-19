@@ -23,6 +23,7 @@ const TaskList = (props) => {
           id={item.id}
           onChangeStatuEdit={() => onChangeStatuEdit(id)}
           onTaskEdit={onTaskEdit}
+          active={item.active}
         />
       </li>
     );

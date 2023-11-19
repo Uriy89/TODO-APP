@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './TasksFilter.css';
 
-export default class TasksFilter extends Component {
-  buttons = [
+const TasksFilter = (props) => {
+  const buttons = [
     { name: 'all', label: 'All' },
     { name: 'active', label: 'Active' },
     { name: 'completed', label: 'Completed' },
   ];
 
-  render() {
-    const { filter, onChangeFilter } = this.props;
+  const { filter, onChangeFilter } = props;
 
-    const btns = this.buttons.map(({ name, label }) => {
-      const isActiveBtn = filter === name;
-      const clss = isActiveBtn ? 'selected' : '';
+  const btns = buttons.map(({ name, label }) => {
+    const isActiveBtn = filter === name;
+    const clss = isActiveBtn ? 'selected' : '';
 
-      return (
-        <li key={name}>
-          <button type="button" className={clss} onClick={() => onChangeFilter(name)}>
-            {label}
-          </button>
-        </li>
-      );
-    });
+    return (
+      <li key={name}>
+        <button type="button" className={clss} onClick={() => onChangeFilter(name)}>
+          {label}
+        </button>
+      </li>
+    );
+  });
 
-    return <ul className="filters">{btns}</ul>;
-  }
-}
+  return <ul className="filters">{btns}</ul>;
+};
+
+export default TasksFilter;
 
 TasksFilter.propTypes = {
   filter: PropTypes.string,

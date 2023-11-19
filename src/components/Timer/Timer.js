@@ -1,68 +1,50 @@
-/* eslint-disable prettier/prettier */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './Timer.css';
 
-export default class Timer extends Component {
-  state = {
-    pause: false,
-    time: 0,
-  };
+const Timer = () => {
+  const [pause, setPause] = useState(false);
+  const [time, setTime] = useState(0);
+  const [timerInterval, setTimerInterval] = useState(null);
 
-  timerInterval = null;
-
-  componentWillUnmount() {
-    clearInterval(this.timerInterval);
-  }
-
-  onSetPouse = () => {
-    this.setState(({ pause }) => ({
-      pause: !pause,
-    }));
-
-    if (!this.state.pause) {
-      this.startTimer();
+  const onSetPause = () => {
+    setPause((pause) => !pause);
+    if (!pause) {
+      startTimer();
     } else {
-      this.pauseTimer();
+      pauseTimer();
     }
   };
 
-  startTimer() {
-    this.timerInterval = setInterval(() => {
-      this.setState((prevState) => ({
-        time: prevState.time + 1,
-      }));
-    }, 1000);
-  }
+  const startTimer = () => {
+    clearInterval(timerInterval);
+    setTimerInterval(setInterval(() => setTime((prevTime) => prevTime + 1), 1000));
+  };
 
-  pauseTimer() {
-    clearInterval(this.timerInterval);
-  }
+  const pauseTimer = () => {
+    setTimerInterval(clearInterval(timerInterval));
+  };
 
-  formatTime() {
-    const { time } = this.state;
+  const formatTime = () => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
-
     return `${hours}:${minutes}:${seconds}`;
-  }
+  };
+  const timerButtonClass = pause ? 'timer__button timer__button-pause' : 'timer__button timer__button-play';
 
-  render() {
-    const { pause } = this.state;
-    const timerButtonClass = pause ? 'timer__button timer__button-pause' : 'timer__button timer__button-play';
-
-    return (
-      <div className="timer">
-        <button type="button" className={timerButtonClass} onClick={this.onSetPouse}></button>
-        <span className="timer__info">{this.formatTime()}</span>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="timer">
+      <button type="button" className={timerButtonClass} onClick={onSetPause}></button>
+      <span className="timer__info">{formatTime()}</span>
+    </div>
+  );
+};
 
 Timer.propTypes = {
   pause: PropTypes.bool,
-  time: PropTypes.func,
+  time: PropTypes.number,
 };
+
+export default Timer;
