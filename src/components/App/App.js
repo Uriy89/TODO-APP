@@ -9,8 +9,7 @@ const App = () => {
   
 
   let maxId = 100;
-
-  const [isActive, setIsActive] = useState(false);
+  
   const [filter, setFilter] = useState('all');
 
   const createTodoItem = (label) => {
@@ -19,7 +18,6 @@ const App = () => {
       description: '',
       active: true,
       id: maxId++,
-      classChecked: isActive ? '' : 'checked',
       time: new Date(),
       status: false,
     };
