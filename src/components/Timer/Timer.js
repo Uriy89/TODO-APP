@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './Timer.css';
@@ -16,6 +16,12 @@ const Timer = () => {
       pauseTimer();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerInterval);
+    };
+  }, []);
 
   const startTimer = () => {
     clearInterval(timerInterval);

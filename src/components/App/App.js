@@ -1,15 +1,13 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 import Footer from '../Footer';
 import './App.css';
 
 const App = () => {
-  
 
-  let maxId = 100;
-  
+  const maxId = useRef(100);
   const [filter, setFilter] = useState('all');
 
   const createTodoItem = (label) => {
@@ -17,7 +15,7 @@ const App = () => {
       label,
       description: '',
       active: true,
-      id: maxId++,
+      id: maxId.current++,
       time: new Date(),
       status: false,
     };

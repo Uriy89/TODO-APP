@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
+import classNames from 'classnames';
 
 import Eddit from '../Eddit';
 import './Task.css';
@@ -13,9 +14,9 @@ const Task = (props) => {
   console.log(active);
   const distance = formatDistanceToNow(time, { includeSeconds: true });
 
-  let classLabel = '';
-
-  if (!active) classLabel += 'description';
+  const classLabel = classNames({
+    description: active === false,
+  });
 
   return (
     <>
